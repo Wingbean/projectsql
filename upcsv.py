@@ -7,15 +7,15 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-creds = ServiceAccountCredentials.from_json_keyfile_name("your_credentials.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\Users\MKDay\OneDrive\MKDay\druguse-ca69ae202a22.json", scope)
 client = gspread.authorize(creds)
 
 # เปิด Google Sheet โดยใช้ชื่อหรือ ID
-sheet = client.open("Your Sheet Name").sheet1  # หรือใช้ sheet = client.open_by_key("sheet_id").sheet1
+sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").sheet1
 
 # อ่านข้อมูลจากไฟล์ CSV
 data = []
-with open("your_file.csv", "r") as f:
+with open("druguse.csv", "r") as f:
     reader = csv.reader(f)
     for row in reader:
         data.append(row)
