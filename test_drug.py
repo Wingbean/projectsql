@@ -17,19 +17,19 @@ def query_and_save_to_csv():
             print("Successfully connected to MySQL server")
 
             query = """
-            SELECT
-            o.icode as "รหัสยา"
-            ,d.tmt_tp_code as "TTMT_code"
-            ,d.name as "Drug"
+            select
+            o.icode as รหัสยา
+            ,d.tmt_tp_code as TTMT_code
+            ,d.name as Drug
             ,d.strength 
             ,d.units
-            ,count(o.icode)as "list"
-            ,sum(o.qty)as "quantity_จำนวนสั่ง"
-            ,d.unitcost as "ราคาต่อหน่วย"
-            ,(sum(o.qty)*d.unitcost)as "amount_มูลค่า"
+            ,count(o.icode)as list
+            ,sum(o.qty)as quantity_จำนวนสั่ง
+            ,d.unitcost as ราคาต่อหน่วย
+            ,(sum(o.qty)*d.unitcost)as amount_มูลค่า
             from opitemrece o
             join drugitems d on d.icode=o.icode 
-            where o.rxdate between "2025-03-27" and "2025-03-27" and d.tmt_tp_code IN(798783,717021,532586,940556,264414,9092983,666847,9374895,486941,715038)
+            where o.rxdate between "2025-04-02" and "2025-04-02" and d.tmt_tp_code IN(798783,717021,532586,940556,264414,9092983,666847,9374895,486941,715038)
             group by o.icode order by d.name,d.strength 
             ;
             """
@@ -43,8 +43,8 @@ def query_and_save_to_csv():
             df = pd.DataFrame(results, columns=['รหัสยา', 'TTMT_code', 'Drug', 'Strength', 'Units', 'list', 'Quan', 'unitcost', 'amount'])
 
             # บันทึก DataFrame เป็น CSV
-            df.to_csv('result.csv', index=False)
-            print("Results saved to result.csv")
+            df.to_csv('druguse.csv', index=False)
+            print("Results saved to druguse.csv")
 
     except Error as e:
         print(f"Error: {e}")
