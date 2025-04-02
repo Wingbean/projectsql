@@ -7,7 +7,7 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\Users\MKDay\OneDrive\MKDay\druguse-ca69ae202a22.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\druguse-d2f5b849851c.json", scope)
 client = gspread.authorize(creds)
 
 # เปิด Google Sheet โดยใช้ชื่อหรือ ID
