@@ -15,6 +15,15 @@ from vn_stat vs
 where vstdate = '2025-04-01' 
 ;
 
+--- Create View
+
+CREATE VIEW v_opitemrece AS
+select * from opitemrece
+;
+
+SELECT * from v_opitemrece;
+
+
 --- อันนีใช้ได้ใกล้เคียงมาก
 select doctor
 ,count(doctor)
