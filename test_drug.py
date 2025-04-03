@@ -1,10 +1,17 @@
-"""input dat , file name"""
+"""test input"""
 import mysql.connector
 import pandas as pd
 from mysql.connector import Error
 
 def query_and_save_to_csv():
     try:
+        # รับค่า input วันที่เริ่มต้นและสิ้นสุด
+        start_date = input("Enter start date (YYYY-MM-DD): ")
+        end_date = input("Enter end date (YYYY-MM-DD): ")
+
+        # รับค่า input ชื่อไฟล์ CSV
+        filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
+
         # เชื่อมต่อกับ MySQL
         connection = mysql.connector.connect(
             host='192.168.10.1',
@@ -17,7 +24,7 @@ def query_and_save_to_csv():
         if connection.is_connected():
             print("Successfully connected to MySQL server")
 
-            query = """
+            query = f"""
             select
             o.icode as รหัสยา
             ,d.tmt_tp_code as TTMT_code
@@ -30,7 +37,7 @@ def query_and_save_to_csv():
             ,(sum(o.qty)*d.unitcost)as amount_มูลค่า
             from opitemrece o
             join drugitems d on d.icode=o.icode 
-            where o.rxdate between "2023-10-01" and "2023-12-31" and d.tmt_tp_code IN(798783,717021,532586,940556,264414,9092983,666847,9374895,486941,715038)
+            where o.rxdate between "{start_date}" and "{end_date}" and d.tmt_tp_code IN(798783,717021,532586,940556,264414,9092983,666847,9374895,486941,715038)
             group by o.icode order by d.name,d.strength 
             ;
             """
@@ -44,8 +51,8 @@ def query_and_save_to_csv():
             df = pd.DataFrame(results, columns=['รหัสยา', 'TTMT_code', 'Drug', 'Strength', 'Units', 'list', 'Quan', 'unitcost', 'amount'])
 
             # บันทึก DataFrame เป็น CSV
-            df.to_csv('druguse.csv', index=False)
-            print("Results saved to druguse.csv")
+            df.to_csv(f'{filename}.csv', index=False)
+            print(f"Results saved to {filename}.csv")
 
     except Error as e:
         print(f"Error: {e}")
