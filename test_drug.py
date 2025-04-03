@@ -29,7 +29,7 @@ def query_and_save_to_csv():
             ,(sum(o.qty)*d.unitcost)as amount_มูลค่า
             from opitemrece o
             join drugitems d on d.icode=o.icode 
-            where o.rxdate between "2025-04-03" and "2025-04-03" and d.tmt_tp_code IN(798783,717021,532586,940556,264414,9092983,666847,9374895,486941,715038)
+            where o.rxdate between "2023-10-01" and "2023-12-31" and d.tmt_tp_code IN(798783,717021,532586,940556,264414,9092983,666847,9374895,486941,715038)
             group by o.icode order by d.name,d.strength 
             ;
             """

@@ -9,11 +9,14 @@ scope = ["https://spreadsheets.google.com/feeds",
 # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
 creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\druguse-d2f5b849851c.json", scope)
 client = gspread.authorize(creds)
-
+"""
 # เปิด Google Sheet โดยใช้ชื่อหรือ ID
 sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").sheet1
+"""
+# เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
+sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet("1_2567")
 
-""""
+"""
 # อ่านข้อมูลจากไฟล์ CSV
 data = []
 with open("druguse.csv", "r") as f:
