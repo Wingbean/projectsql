@@ -2,6 +2,9 @@ import csv
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+# รับค่า input ชื่อไฟล์ CSV
+filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
+
 # ขอบเขตการอนุญาต (scope) สำหรับ Google Sheets API
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
@@ -27,14 +30,14 @@ with open("druguse.csv", "r") as f:
 # อ่านข้อมูลจากไฟล์ CSV โดยระบุการเข้ารหัส
 data = []
 try:
-    with open("druguse.csv", "r", encoding="utf-8") as f:  # ลองใช้ utf-8 ก่อน
+    with open(f"{filename}.csv", "r", encoding="utf-8") as f:  # ลองใช้ utf-8 ก่อน
         reader = csv.reader(f)
         for row in reader:
             data.append(row)
 
 except UnicodeDecodeError:
     try:
-        with open("druguse.csv", "r", encoding="windows-1252") as f: # ถ้า utf-8 ไม่ได้ผล ลอง windows-1252
+        with open(f"{filename}.csv", "r", encoding="windows-1252") as f: # ถ้า utf-8 ไม่ได้ผล ลอง windows-1252
             reader = csv.reader(f)
             for row in reader:
                 data.append(row)
