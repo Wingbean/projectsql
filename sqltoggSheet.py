@@ -12,6 +12,9 @@ def query_and_upload_to_ggsheet():
         # รับค่า input วันที่เริ่มต้นและสิ้นสุด
         start_date = input("Enter start date (YYYY-MM-DD): ")
         end_date = input("Enter end date (YYYY-MM-DD): ")
+        
+        #รับค่าชื่อ worksheet
+        wksname = input("ใส่ชื่อแผ่นงานใน ggSheet ที่ต้องการ upload: ")
 
         # รับค่า input ชื่อไฟล์ CSV
         # filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
@@ -68,6 +71,10 @@ def query_and_upload_to_ggsheet():
             for col in df.columns:
                 if df[col].dtype == 'object':
                     df[col] = df[col].apply(lambda x: str(x) if isinstance(x, Decimal) else x)
+
+            # เพิ่มชื่อคอลัมน์ (หัวตาราง) เข้าไปใน list ของ lists
+            data_to_upload = [df.columns.tolist()] + df.values.tolist()
+
             """
             # บันทึก DataFrame เป็น CSV
             df.to_csv(f'{filename}.csv', index=False)
@@ -82,10 +89,10 @@ def query_and_upload_to_ggsheet():
             client = gspread.authorize(creds)
 
             # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
-            sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet("1_2567")
+            sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet(f"{wksname}")
 
             sheet.clear()
-            sheet.append_rows(df.values.tolist())
+            sheet.append_rows(data_to_upload)
             print("Results uploaded to Google Sheets")
 
     except Error as e:
