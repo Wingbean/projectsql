@@ -84,7 +84,7 @@ def query_and_upload_to_ggsheet():
             client = gspread.authorize(creds)
 
             # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
-            sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet("Cr")
+            sheet = client.open_by_key("1HqLTFYFXyPtRyNBPAItVbwq19EwdFqIKS24K9YDomJ0").worksheet("cr")
 
             sheet.clear()
             sheet.append_rows(data_to_upload)
