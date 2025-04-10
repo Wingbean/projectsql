@@ -1,4 +1,4 @@
-"""test input"""
+# update auto loop 4 trimester
 import mysql.connector
 import pandas as pd
 import csv
@@ -7,8 +7,9 @@ from mysql.connector import Error
 from oauth2client.service_account import ServiceAccountCredentials
 from decimal import Decimal
 
-def query_and_upload_to_ggsheet():
+def query_and_upload_to_ggsheet(start_date, end_date, wksname):
     try:
+        """
         # รับค่า input วันที่เริ่มต้นและสิ้นสุด
         start_date = input("Enter start date (YYYY-MM-DD): ")
         end_date = input("Enter end date (YYYY-MM-DD): ")
@@ -18,7 +19,7 @@ def query_and_upload_to_ggsheet():
 
         # รับค่า input ชื่อไฟล์ CSV
         # filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
-
+        """
         # เชื่อมต่อกับ MySQL
         connection = mysql.connector.connect(
             host='192.168.10.1',
@@ -105,4 +106,23 @@ def query_and_upload_to_ggsheet():
             print("MySQL connection is closed")
 
 if __name__ == "__main__":
-    query_and_upload_to_ggsheet()
+    # กำหนดรายการของค่าสำหรับแต่ละรอบ
+    runs = [
+        {"start_date": "2023-10-01", "end_date": "2023-12-31", "wksname": "1_2567"},
+        {"start_date": "2024-01-01", "end_date": "2024-03-31", "wksname": "2_2567"},
+        {"start_date": "2024-04-01", "end_date": "2024-06-30", "wksname": "3_2567"},
+        {"start_date": "2024-07-01", "end_date": "2024-09-30", "wksname": "4_2567"},
+        {"start_date": "2024-10-01", "end_date": "2024-12-31", "wksname": "1_2568"},
+        {"start_date": "2025-01-01", "end_date": "2025-03-31", "wksname": "2_2568"},
+        {"start_date": "2025-04-01", "end_date": "2025-06-30", "wksname": "3_2568"},
+        {"start_date": "2025-07-01", "end_date": "2025-09-30", "wksname": "4_2568"},
+    ]
+
+    # วนลูปเพื่อรันฟังก์ชัน query_and_upload_to_ggsheet() ในแต่ละรอบ
+    for run_data in runs:
+        start_date = run_data["start_date"]
+        end_date = run_data["end_date"]
+        wksname = run_data["wksname"]
+        query_and_upload_to_ggsheet(start_date, end_date, wksname)
+
+    print("Finished running all 8 rounds.")
