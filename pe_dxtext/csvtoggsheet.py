@@ -36,13 +36,17 @@ def csv_to_ggsheet():
 
             query = f"""
             SELECT
-            o.vn ,o.hn ,o.an ,o.vstdate ,o.vsttime 
-            ,ou.name AS 'ผู้ซักประวัติ'
-            ,o.doctor AS 'รหัสแพทย์'
-            ,d.name AS 'ชื่อแพทย์'
-            ,os.pe ,od.diag_text
-            ,os.cc ,os.hpi
-            ,v.pdx,v.dx1,v.dx2,v.dx3
+            o.vn AS 'VN'
+            ,MAX(o.hn) AS 'HN' 
+            ,MAX(o.an) AS 'AN' 
+            ,MAX(o.vstdate) AS 'VstDate'
+            ,MAX(o.vsttime) AS 'VstTime'
+            ,MAX(ou.name) AS 'ผู้ซักประวัติ'
+            ,MAX(o.doctor) AS 'รหัสแพทย์'
+            ,MAX(d.name) AS 'ชื่อแพทย์'
+            ,MAX(os.pe) AS 'PE'
+            ,MAX(od.diag_text) AS 'Dx_Text'
+            ,MAX(os.cc) AS 'CC' ,MAX(os.hpi) AS 'Hpi' ,MAX(v.pdx) AS 'PDx',MAX(v.dx1) AS 'Dx1',MAX(v.dx2) AS 'Dx2',MAX(v.dx3) AS 'Dx3'
             FROM ovst o 
             LEFT OUTER JOIN opdscreen os ON o.vn = os.vn
             LEFT OUTER JOIN doctor d  ON o.doctor = d.code
@@ -51,8 +55,9 @@ def csv_to_ggsheet():
             LEFT OUTER JOIN vn_stat v on v.vn = o.vn
             LEFT OUTER JOIN ovst_doctor_diag od on od.vn = o.vn
             WHERE o.vstdate BETWEEN '2025-05-06' AND '2025-05-06' -- o.doctor in ('247', '0086', '0087', '0088', '0089', '0090', '0052', '004', '123')
-            ORDER BY o.vstdate DESC, o.vsttime DESC, o.doctor
-            ;
+            GROUP BY o.vn
+            ORDER BY MAX(o.vstdate) DESC, MAX(o.vsttime) DESC, MAX(o.doctor) DESC
+;
             """
             
             # รัน query
