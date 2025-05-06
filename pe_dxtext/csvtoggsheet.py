@@ -39,7 +39,7 @@ def csv_to_ggsheet():
             ,ou.name AS 'ผู้ซักประวัติ'
             ,o.doctor AS 'รหัสแพทย์'
             ,d.name AS 'ชื่อแพทย์'
-            ,os.pe ,o.diag_text
+            ,os.pe ,od.diag_text
             ,os.cc ,os.hpi
             ,v.pdx,v.dx1,v.dx2,v.dx3
             FROM ovst o 
@@ -48,6 +48,7 @@ def csv_to_ggsheet():
             LEFT OUTER JOIN screen_doctor sd on sd.vn = o.vn
             LEFT OUTER JOIN opduser ou on ou.loginname = sd.staff
             LEFT OUTER JOIN vn_stat v on v.vn = o.vn
+            LEFT OUTER JOIN ovst_doctor_diag od on od.vn = o.vn
             WHERE o.vstdate BETWEEN '2025-01-01' AND '2025-03-31' -- o.doctor in ('247', '0086', '0087', '0088', '0089', '0090', '0052', '004', '123')
             ORDER BY o.vstdate DESC, o.vsttime DESC, o.doctor
             ;
