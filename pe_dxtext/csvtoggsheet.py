@@ -5,6 +5,7 @@ import gspread
 from mysql.connector import Error
 from oauth2client.service_account import ServiceAccountCredentials
 from decimal import Decimal
+import os  # Import the os module
 
 def csv_to_ggsheet():
     try:
@@ -49,7 +50,7 @@ def csv_to_ggsheet():
             LEFT OUTER JOIN opduser ou on ou.loginname = sd.staff
             LEFT OUTER JOIN vn_stat v on v.vn = o.vn
             LEFT OUTER JOIN ovst_doctor_diag od on od.vn = o.vn
-            WHERE o.vstdate BETWEEN '2025-01-01' AND '2025-03-31' -- o.doctor in ('247', '0086', '0087', '0088', '0089', '0090', '0052', '004', '123')
+            WHERE o.vstdate BETWEEN '2025-05-06' AND '2025-05-06' -- o.doctor in ('247', '0086', '0087', '0088', '0089', '0090', '0052', '004', '123')
             ORDER BY o.vstdate DESC, o.vsttime DESC, o.doctor
             ;
             """
@@ -112,6 +113,11 @@ def csv_to_ggsheet():
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
+        
+        # ลบไฟล์ CSV หากมีการสร้าง
+        if 'filename' in locals() and os.path.exists(f'{filename}.csv'):
+            os.remove(f'{filename}.csv')
+            print(f"File {filename}.csv has been deleted.")
 
 
 if __name__ == "__main__":
