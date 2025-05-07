@@ -20,7 +20,9 @@ def csv_to_ggsheet():
         
         # รับค่า input ชื่อไฟล์ CSV
         
-        filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
+        filename = 'pedx'
+        
+        #input("Enter filename to save CSV (e.g., druguse.csv): ")
         
         # เชื่อมต่อกับ MySQL
         connection = mysql.connector.connect(
