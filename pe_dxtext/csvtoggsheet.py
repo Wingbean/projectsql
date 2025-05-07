@@ -9,9 +9,11 @@ import os  # Import the os module
 
 def csv_to_ggsheet():
     try:
-        """
+        
         # รับค่า input วันที่เริ่มต้นและสิ้นสุด
         start_date = input("Enter start date (YYYY-MM-DD): ")
+
+        """
         end_date = input("Enter end date (YYYY-MM-DD): ")
         """
 
@@ -56,7 +58,7 @@ def csv_to_ggsheet():
             LEFT OUTER JOIN opduser ou on ou.loginname = sd.staff
             LEFT OUTER JOIN vn_stat v on v.vn = o.vn
             LEFT OUTER JOIN ovst_doctor_diag od on od.vn = o.vn
-            WHERE o.vstdate BETWEEN '2025-05-06' AND '2025-05-06' -- o.doctor in ('247', '0086', '0087', '0088', '0089', '0090', '0052', '004', '123')
+            WHERE o.vstdate BETWEEN '{start_date}' AND CURDATE() -- o.doctor in ('247', '0086', '0087', '0088', '0089', '0090', '0052', '004', '123')
             GROUP BY o.vn
             ORDER BY MAX(o.vstdate) DESC, MAX(o.vsttime) DESC, MAX(o.doctor) DESC
 ;
