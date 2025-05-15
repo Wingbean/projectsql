@@ -30,11 +30,11 @@ select lh.lab_order_number
 ,lh.order_date
 ,lh.order_time
 ,lo.lab_items_code
-,lo.lab_order_result AS "Cr"
+,lo.lab_order_result AS "eGFR"
 from  lab_head lh
 LEFT outer join lab_order lo ON lo.lab_order_number = lh.lab_order_number
 LEFT outer join patient p ON p.hn = lh.hn
-where lh.order_date = "2025-04-03" AND lo.lab_items_code = 78
+where lh.order_date = "2025-04-03" AND lo.lab_items_code = 883
 ;
 
 -- จากนิด

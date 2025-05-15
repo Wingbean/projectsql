@@ -5,38 +5,8 @@ select vn
 ,doctor 
 ,command_doctor
 from ovst o
-where vstdate = '2025-04-01' and main_dep = '033' 
--- -AND doctor = '004'
+where vstdate = '2024-10-11' and main_dep = '033' AND doctor = '004'
 ;
-
---- พยายามจะหา workload แพทย์
-select *
-from vn_stat vs  
-where vstdate = '2025-04-01' 
-;
-
---- Create View
-
-CREATE VIEW v_opitemrece AS
-select * from opitemrece
-;
-
-SELECT * from v_opitemrece;
-
-
---- อันนีใช้ได้ใกล้เคียงมาก
-select doctor
-,count(doctor)
-FROM
-(select vn
-,doctor
-from opitemrece
-where vstdate = '2025-04-02'
-group by vn) AS sub1
-GROUP BY doctor
-;
-
-
 
 select COUNT(VN)
 from ovst o
@@ -46,7 +16,7 @@ where vstdate = '2024-10-11' and main_dep = '033'
 SELECT *
 from vn_stat v
 JOIN ovst o  ON v.vn = o.vn
-where v.vstdate = '2025-04-01' AND v.dx_doctor = '004'
+where v.vstdate = '2024-10-11' AND v.dx_doctor = '004'
 -- AND v.hn = '0102916'
 ;
 
@@ -59,6 +29,6 @@ v.vn, o.vn AS o_vn, v.hn, v.cid, v.pdx, v.lastvisit  ,o.diag_text , v.main_pdx ,
 ,o.rx_queue 
 from vn_stat v
 JOIN ovst o  ON v.vn = o.vn
-where v.vstdate = '2025-04-01' AND v.dx_doctor = '004' 
+where v.vstdate = '2024-10-11' AND v.dx_doctor = '004' 
 -- AND cur_dep = '033'
 ;
