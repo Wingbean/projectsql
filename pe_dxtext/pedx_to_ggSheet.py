@@ -6,6 +6,7 @@ from mysql.connector import Error
 from oauth2client.service_account import ServiceAccountCredentials
 from decimal import Decimal
 import os  # Import the os module
+import scopeconnect
 
 def csv_to_ggsheet():
     try:
@@ -74,18 +75,12 @@ def csv_to_ggsheet():
 
             # บันทึก DataFrame เป็น CSV
             df.to_csv(f'{filename}.csv', index=False)
-            print(f"Results saved to {filename}.csv")
+            print(f"Results saved to {filename}.csv")                    
+
+            # import scopeconnect มาจาก file แล้ว
             
-            # ขอบเขตการอนุญาต (scope) สำหรับ Google Sheets API
-            scope = ["https://spreadsheets.google.com/feeds",
-                    "https://www.googleapis.com/auth/drive"]
-
-            # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-            creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\druguse-d2f5b849851c.json", scope)
-            client = gspread.authorize(creds)
-
             # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
-            sheet = client.open_by_key("1nandm3Rf1zE_SY0coz5mqJgZ-2nLGRF4dY_PsvVd6fw").worksheet(f"data")
+            sheet = scopeconnect.client.open_by_key("1nandm3Rf1zE_SY0coz5mqJgZ-2nLGRF4dY_PsvVd6fw").worksheet(f"data")
 
             # อ่านข้อมูลจากไฟล์ CSV โดยระบุการเข้ารหัส
             data = []
