@@ -22,18 +22,25 @@ GROUP BY a.ward
 
 # Count admit
 SELECT
-hn
-,an
-,vn
-,admdoctor 
-,ward
-,regdate 
-,regtime
-,dch_doctor 
-,dchdate 
-,dchtime 
-FROM ipt
-WHERE regdate = CURDATE()
+i.hn
+,i.an
+,i.vn
+,i.pttype ,p.name  ,p.hipdata_code
+,i.admdoctor 
+,i.first_ward ,i.ward ,w.name 
+,i.regdate ,i.regtime
+,ia.bedno ,ia.bedtype ,b.name
+,ia.roomno ,ia.move_in_bed_datetime
+,ia.rate
+,i.dch_doctor 
+,i.dchdate 
+,i.dchtime 
+FROM ipt i
+LEFT OUTER JOIN ward w ON w.ward = i.ward
+LEFT OUTER JOIN pttype p  ON p.pttype = i.pttype
+LEFT OUTER JOIN iptadm ia ON ia.an = i.an
+LEFT OUTER JOIN bedtype b  ON ia.bedtype = b.bedtype
+WHERE i.regdate BETWEEN '2025-04-01' AND '2025-04-30'
 ;
 
 # Count admit
