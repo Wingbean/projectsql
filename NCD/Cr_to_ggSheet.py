@@ -1,4 +1,11 @@
 # correct date time toJson before upload
+# pip install mysql-connector-python pandas gspread oauth2client  # หรือ google-auth แทน oauth2client
+
+# ==============
+# รัน query --> create df --> change dtatype to str --> upload to ggSheet
+# ไม่มี save to csv ก่อน แล้ว upload csv to ggSheet
+# ==============
+
 import mysql.connector
 import pandas as pd
 import csv
@@ -20,6 +27,7 @@ def query_and_upload_to_ggsheet():
             database='hosxp'  # ถ้าคุณต้องการเชื่อมต่อกับ database เฉพาะ
         )
 
+        # วาง qurey
         if connection.is_connected():
             print("Successfully connected to MySQL server")
 
@@ -48,7 +56,7 @@ def query_and_upload_to_ggsheet():
             
             # รัน query
             cursor = connection.cursor()
-            cursor.execute(query)
+            cursor.execute(query) # สั่งให้รัน query
             results = cursor.fetchall()
 
             # สร้าง DataFrame จากผลลัพธ์
@@ -86,6 +94,7 @@ def query_and_upload_to_ggsheet():
             # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
             sheet = client.open_by_key("1HqLTFYFXyPtRyNBPAItVbwq19EwdFqIKS24K9YDomJ0").worksheet("cr")
 
+            # เพิ่มข้อมูลเข้าไปใน ggSheet
             sheet.clear()
             sheet.append_rows(data_to_upload)
             print("Results uploaded to Google Sheets")

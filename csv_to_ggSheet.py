@@ -1,6 +1,13 @@
+# pip install gspread oauth2client  # หรือ google-auth แทน oauth2client
 import csv
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+
+# ==============
+# มีไฟล์ csv --> read csv to list โดยระบุการเข้ารหัส --> upload list to ggSheet
+# แบบนี้มีหัว column จาก CSV ไปด้วย
+# ==============
+
 
 # รับค่า input ชื่อไฟล์ CSV
 filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
