@@ -94,7 +94,7 @@ def query_and_upload_to_ggsheet(start_date, end_date, wksname):
                     "https://www.googleapis.com/auth/drive"]
 
             # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-            creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\druguse-d2f5b849851c.json", scope)
+            creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\DEV\json\druguse-d2f5b849851c.json", scope)
             client = gspread.authorize(creds)
 
             # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
