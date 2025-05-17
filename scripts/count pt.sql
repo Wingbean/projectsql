@@ -25,22 +25,23 @@ SELECT
 i.hn
 ,i.an
 ,i.vn
-,i.pttype ,p.name  ,p.hipdata_code
-,i.admdoctor 
-,i.first_ward ,i.ward ,w.name 
-,i.regdate ,i.regtime
-,ia.bedno ,ia.bedtype ,b.name
+,i.pttype ,p.name AS 'สิทธิ์'  ,p.hipdata_code 'กองทุน'
+,i.admdoctor AS 'AdmitDoctor'
+,i.first_ward  ,i.ward AS 'wardCode ',w.name AS 'วอร์ด'
+,i.regdate AS 'วันadmit' ,i.regtime AS 'เวลาadmit'
+,ia.bedno ,ia.bedtype ,b.name AS 'ชนิดเตียง'
 ,ia.roomno ,ia.move_in_bed_datetime
-,ia.rate
-,i.dch_doctor 
-,i.dchdate 
-,i.dchtime 
+,ia.rate AS 'rate ราคาเตียง'
+,i.dch_doctor AS 'D/C_doctor'
+,i.dchdate  AS 'วัน D/C'
+,i.dchtime AS 'เวลา D/C'
 FROM ipt i
 LEFT OUTER JOIN ward w ON w.ward = i.ward
 LEFT OUTER JOIN pttype p  ON p.pttype = i.pttype
 LEFT OUTER JOIN iptadm ia ON ia.an = i.an
 LEFT OUTER JOIN bedtype b  ON ia.bedtype = b.bedtype
 WHERE i.regdate BETWEEN '2025-04-01' AND '2025-04-30'
+ORDER BY i.an
 ;
 
 # Count admit
