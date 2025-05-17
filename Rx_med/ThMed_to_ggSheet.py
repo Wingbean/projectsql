@@ -1,4 +1,5 @@
 # update auto loop 4 trimester
+# pip install mysql-connector-python pandas gspread oauth2client  # หรือ google-auth แทน oauth2client
 import mysql.connector
 import pandas as pd
 import csv
@@ -6,6 +7,13 @@ import gspread
 from mysql.connector import Error
 from oauth2client.service_account import ServiceAccountCredentials
 from decimal import Decimal
+
+# ==============
+# รัน query --> create df --> change dtatype to str --> upload to ggSheet
+# ไม่มี save to csv ก่อน แล้ว upload csv to ggSheet
+# แปลงค่า Decimal เป็น str เพื่อรักษาความแม่นยำของทศนิยม แทน float 
+# และจัดการการแสดงผลทศนิยมใน Google Sheets แทน
+# ==============
 
 def query_and_upload_to_ggsheet(start_date, end_date, wksname):
     try:

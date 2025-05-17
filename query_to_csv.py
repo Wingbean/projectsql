@@ -1,3 +1,9 @@
+# pip install mysql-connector-python pandas
+
+# ==============
+# รัน query --> create df --> save to csv
+# ==============
+
 import mysql.connector
 import pandas as pd
 from mysql.connector import Error

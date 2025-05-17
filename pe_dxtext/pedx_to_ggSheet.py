@@ -1,3 +1,5 @@
+# pip install mysql-connector-python pandas gspread oauth2client  # หรือ google-auth แทน oauth2client
+
 import mysql.connector
 import pandas as pd
 import csv
@@ -7,6 +9,11 @@ from oauth2client.service_account import ServiceAccountCredentials
 from decimal import Decimal
 import os  # Import the os module
 import scopeconnect
+
+# ==============
+# รัน query --> create df --> save to csv --> --> อ่านข้อมูลจากไฟล์ CSV โดยระบุการเข้ารหัส ---> upload to ggSheet
+# ลองใช้ utf-8 ก่อน ถ้า utf-8 ไม่ได้ผล ลอง windows-1252
+# ==============
 
 def csv_to_ggsheet():
     try:
