@@ -17,17 +17,17 @@ from decimal import Decimal
 
 def query_and_upload_to_ggsheet(start_date, end_date, wksname):
     try:
-        """
+        
         # รับค่า input วันที่เริ่มต้นและสิ้นสุด
-        start_date = input("Enter start date (YYYY-MM-DD): ")
-        end_date = input("Enter end date (YYYY-MM-DD): ")
+        # start_date = input("Enter start date (YYYY-MM-DD): ")
+        # end_date = input("Enter end date (YYYY-MM-DD): ")
         
         #รับค่าชื่อ worksheet
-        wksname = input("ใส่ชื่อแผ่นงานใน ggSheet ที่ต้องการ upload: ")
+        # wksname = input("ใส่ชื่อแผ่นงานใน ggSheet ที่ต้องการ upload: ")
 
         # รับค่า input ชื่อไฟล์ CSV
         # filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
-        """
+        
         # เชื่อมต่อกับ MySQL
         connection = mysql.connector.connect(
             host='192.168.10.1',
@@ -94,7 +94,7 @@ def query_and_upload_to_ggsheet(start_date, end_date, wksname):
                     "https://www.googleapis.com/auth/drive"]
 
             # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-            creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\DEV\json\druguse-d2f5b849851c.json", scope)
+            creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\makhu\OneDrive\MKDay\DEV\json\druguse-d2f5b849851c.json", scope)
             client = gspread.authorize(creds)
 
             # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
