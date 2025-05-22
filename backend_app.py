@@ -6,6 +6,10 @@ import pandas as pd
 
 app = Flask(__name__)
 
+@app.route("/test", methods=["GET"])
+def test():
+    return jsonify({"message": "Flask backend ทำงานได้ปกติ!"})
+
 @app.route('/generate', methods=['POST'])
 def generate_csv():
     data = request.json
