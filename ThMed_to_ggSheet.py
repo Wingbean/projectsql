@@ -7,6 +7,7 @@ import gspread
 from mysql.connector import Error
 from oauth2client.service_account import ServiceAccountCredentials
 from decimal import Decimal
+import scopeconnect
 
 # ==============
 # รัน query --> create df --> change dtatype to str --> upload to ggSheet
@@ -53,7 +54,7 @@ def query_and_upload_to_ggsheet(start_date, end_date, wksname):
             ,(sum(o.qty)*d.unitcost)as amount_มูลค่า
             from opitemrece o
             join drugitems d on d.icode=o.icode 
-            where o.rxdate between "{start_date}" and "{end_date}" and d.tmt_tp_code IN(798783,717021,532586,940556,264414,9092983,666847,9374895,486941,715038)
+            where o.rxdate between "{start_date}" and "{end_date}" and d.tmt_tp_code IN(798783,717021,1470519,1580006,532586,940556,264414,9092983,666847,9374895,486941,715038)
             group by o.icode order by d.name,d.strength 
             ;
             """
@@ -84,21 +85,22 @@ def query_and_upload_to_ggsheet(start_date, end_date, wksname):
             # เพิ่มชื่อคอลัมน์ (หัวตาราง) เข้าไปใน list ของ lists
             data_to_upload = [df.columns.tolist()] + df.values.tolist()
 
-            """
+            
             # บันทึก DataFrame เป็น CSV
-            df.to_csv(f'{filename}.csv', index=False)
-            print(f"Results saved to {filename}.csv")
-            """
+            #df.to_csv(f'{filename}.csv', index=False)
+            #print(f"Results saved to {filename}.csv")
+            
             # ขอบเขตการอนุญาต (scope) สำหรับ Google Sheets API
-            scope = ["https://spreadsheets.google.com/feeds",
-                    "https://www.googleapis.com/auth/drive"]
+            #scope = ["https://spreadsheets.google.com/feeds",
+            #        "https://www.googleapis.com/auth/drive"]
 
             # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-            creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\makhu\OneDrive\MKDay\DEV\json\druguse-d2f5b849851c.json", scope)
-            client = gspread.authorize(creds)
+            #creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\makhu\OneDrive\MKDay\DEV\json\druguse-d2f5b849851c.json", scope)
+            #client = gspread.authorize(creds)
+            
 
             # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
-            sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet(f"{wksname}")
+            sheet = scopeconnect.client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet(f"{wksname}")
 
             sheet.clear()
             sheet.append_rows(data_to_upload)
