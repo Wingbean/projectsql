@@ -50,7 +50,7 @@ def send_query():
     }
 
     try:
-        response = requests.post(BACKEND_URL, json=payload)
+        response = requests.post(f"{BACKEND_URL}/upload", json=payload)
         if response.status_code == 200:
             print("✅ อัปโหลดสำเร็จ")
         else:
