@@ -37,7 +37,7 @@ def query_and_save_to_csv():
             df = pd.DataFrame(results, columns=['vn', 'main_dep', 'vstdate'])
 
             # บันทึก DataFrame เป็น CSV
-            df.to_csv('result.csv', index=False)
+            df.to_csv('result.csv', index=False, encoding='utf-8-sig')
             print("Results saved to result.csv")
 
     except Error as e:

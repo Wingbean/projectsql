@@ -26,14 +26,6 @@ sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").sheet
 # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
 sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet("1_2567")
 
-"""
-# อ่านข้อมูลจากไฟล์ CSV
-data = []
-with open("druguse.csv", "r") as f:
-    reader = csv.reader(f)
-    for row in reader:
-        data.append(row)
-"""
 # อ่านข้อมูลจากไฟล์ CSV โดยระบุการเข้ารหัส
 data = []
 try:
