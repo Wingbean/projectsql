@@ -1,3 +1,10 @@
+# ==============
+# รัน query --> create df --> change dtatype to str --> upload to ggSheet
+# **ไม่มี save to csv ก่อน แล้ว upload csv to ggSheet
+# แปลงค่า Decimal เป็น str เพื่อรักษาความแม่นยำของทศนิยม แทน float 
+# และจัดการการแสดงผลทศนิยมใน Google Sheets แทน
+# ==============
+
 # update auto loop 4 trimester
 # pip install mysql-connector-python pandas gspread oauth2client  # หรือ google-auth แทน oauth2client
 import mysql.connector
@@ -9,12 +16,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from decimal import Decimal
 import scopeconnect
 
-# ==============
-# รัน query --> create df --> change dtatype to str --> upload to ggSheet
-# ไม่มี save to csv ก่อน แล้ว upload csv to ggSheet
-# แปลงค่า Decimal เป็น str เพื่อรักษาความแม่นยำของทศนิยม แทน float 
-# และจัดการการแสดงผลทศนิยมใน Google Sheets แทน
-# ==============
+
 
 def query_and_upload_to_ggsheet(start_date, end_date, wksname):
     try:
@@ -67,17 +69,8 @@ def query_and_upload_to_ggsheet(start_date, end_date, wksname):
             # สร้าง DataFrame จากผลลัพธ์
             df = pd.DataFrame(results, columns=['รหัสยา', 'TTMT_code', 'Drug', 'Strength', 'Units', 'list', 'Quan', 'unitcost', 'amount'])
 
-            """
-            # แปลงค่า Decimal เป็น float หรือ str
-            for col in df.columns:
-                if df[col].dtype == 'object': # ตรวจสอบว่าเป็น Object หรือไม่
-                    try:
-                        df[col] = df[col].apply(lambda x: float(x) if isinstance(x, Decimal) else x)
-                    except TypeError:
-                        df[col] = df[col].apply(lambda x: str(x) if isinstance(x, Decimal) else x)
-            """
-            # แปลงค่า Decimal เป็น str เพื่อรักษาความแม่นยำของทศนิยม คุณควรแปลงค่า Decimal เป็น str แทน float 
-            # และจัดการการแสดงผลทศนิยมใน Google Sheets แทน
+
+            # แปลงค่า Decimal เป็น str เพื่อรักษาความแม่นยำของทศนิยม คุณควรแปลงค่า Decimal เป็น str แทน float และจัดการการแสดงผลทศนิยมใน Google Sheets แทน
             for col in df.columns:
                 if df[col].dtype == 'object':
                     df[col] = df[col].apply(lambda x: str(x) if isinstance(x, Decimal) else x)

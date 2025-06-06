@@ -1,3 +1,6 @@
+#======BACKend ของ ThMedUse=========#
+#==Flask รับ request จาก FrontEnd วน loop แล้ว ส่งไฟล์ ที่ save กลับไป folder ที่ frontend เลือกไว้
+
 # pip install Flask mysql-connector-python pandas
 
 from flask import Flask, request, jsonify, send_file
@@ -71,6 +74,7 @@ def generate_csv():
             df.to_csv(output, index=False, encoding='utf-8-sig')
             output.seek(0)
 
+            # บรรทัดนี้สำคัญ คือการสั่งให้ ส่งไฟล์ที่ save กลับไป
             return send_file(output, mimetype='text/csv', as_attachment=True, download_name=f"{filename}.csv")
 
     

@@ -2,6 +2,7 @@
 import csv
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import scopeconnect
 
 # ==============
 # มีไฟล์ csv --> read csv to list โดยระบุการเข้ารหัส --> upload list to ggSheet
@@ -12,19 +13,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 # รับค่า input ชื่อไฟล์ CSV
 filename = input("Enter filename to save CSV (e.g., druguse.csv): ")
 
-# ขอบเขตการอนุญาต (scope) สำหรับ Google Sheets API
-scope = ["https://spreadsheets.google.com/feeds",
-         "https://www.googleapis.com/auth/drive"]
-
-# ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\druguse-d2f5b849851c.json", scope)
-client = gspread.authorize(creds)
-"""
-# เปิด Google Sheet โดยใช้ชื่อหรือ ID
-sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").sheet1
-"""
 # เปิด Google Sheet ที่มีอยู่แล้ว ระบุชื่อ worksheet
-sheet = client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet("1_2567")
+# 1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc คือ ThMedDrugUse
+sheet = scopeconnect.client.open_by_key("1Za_EK3uLBdAirqrUHilq-kvBsQyF3nIsCrB1ZAub_pc").worksheet("1_2567")
 
 # อ่านข้อมูลจากไฟล์ CSV โดยระบุการเข้ารหัส
 data = []

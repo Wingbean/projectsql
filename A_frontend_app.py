@@ -1,3 +1,7 @@
+#======frontend ของ ThMedUse=========#
+#=เป็น GUI กด แล้ว จะดึง data ผ่าน SQL ใน backend แล้ว save เป็น file csv=#
+#=ไม่มีการอัปโหลดขึ้น cloud ไหน=#
+
 import tkinter as tk
 import requests
 from tkinter import messagebox, filedialog
