@@ -45,7 +45,7 @@ def query_send_telegram():
 
             # COnfig telegram
 
-            TELEGRAM_BOT_TOKEN = '7613011174:AAFVkMwXeT_twavAhTER1HGJPUIxqkBm03I'
+            TELEGRAM_BOT_TOKEN = 
             CHAT_ID = '-1002594018313'
 
             # check chat id
