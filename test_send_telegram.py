@@ -7,6 +7,12 @@ from decimal import Decimal
 from dotenv import load_dotenv
 import os
 
+def load_sql(filename):
+    base_dir = os.path.dirname(__file__)  # โฟลเดอร์ที่ไฟล์ Python นี้อยู่
+    filepath = os.path.join(base_dir, 'sql', filename)
+    with open(filepath, 'r', encoding='utf-8') as f:
+        return f.read()
+
 def query_send_telegram():
     try:
         load_dotenv()
@@ -29,18 +35,12 @@ def query_send_telegram():
         if connection.is_connected():
             print("Successfully connected to MySQL server\nRun query")
 
-            query = """
-                SELECT
-                    o.hn,
-                    MAX(c.regdate)
-                FROM ovst o
-                LEFT OUTER JOIN clinicmember c ON o.hn = c.hn
-                WHERE o.vstdate = CURDATE() AND o.main_dep = '033' AND c.regdate IS NULL
-                GROUP BY o.hn;
-            """
+            sql_query = load_sql("noregisdate.sql")  # โหลด query จากไฟล์
+
+            #query = """"""
 
             cursor = connection.cursor()
-            cursor.execute(query)
+            cursor.execute(sql_query)
             results = cursor.fetchall()
 
             df = pd.DataFrame(results, columns=['HN', 'Regdate'])
