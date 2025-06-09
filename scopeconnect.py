@@ -6,5 +6,5 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 # ข้อมูลประจำตัวบัญชีบริการ (Service Account)
-creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\MKDay\OneDrive\MKDay\DEV\json\druguse-d2f5b849851c.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name("druguse-d2f5b849851c.json", scope)
 client = gspread.authorize(creds)
