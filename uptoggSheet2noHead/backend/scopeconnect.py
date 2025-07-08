@@ -1,5 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import os, sys
 
 # ขอบเขตการอนุญาต (scope) สำหรับ Google Sheets API
 scope = ["https://spreadsheets.google.com/feeds",
